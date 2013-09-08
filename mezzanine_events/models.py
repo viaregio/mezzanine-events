@@ -9,6 +9,8 @@ from datetime import timedelta, datetime as dt
 from mezzanine.utils.sites import current_site_id
 from mezzanine.conf import settings
 
+from decimal import Decimal
+
 def _get_current_domain():
 	return Site.objects.get(id=current_site_id()).domain
 
@@ -53,8 +55,8 @@ class Event(Page, RichText):
 			except ValueError as e:
 				raise ValidationError("The mappable location you specified could not be found on {service}: \"{error}\" Try changing the mappable location, removing any business names, or leaving mappable location blank and using coordinates from getlatlon.com.".format(service="Google Maps", error=e.message))
 			self.mappable_location = location
-			self.lat = str(lat)
-			self.lon = str(lon)
+			self.lat = Decimal(str(lat))
+			self.lon = Decimal(str(lon))
 		
 	def save(self, *args, **kwargs):
 		# determine whether the page needs to be hidden

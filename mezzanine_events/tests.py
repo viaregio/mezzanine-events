@@ -6,6 +6,7 @@ from .models import EventContainer, Event
 from mezzanine.core.models import CONTENT_STATUS_DRAFT, CONTENT_STATUS_PUBLISHED
 from datetime import date, time
 
+from decimal import Decimal
 
 class EventTests (TestCase):
     urls = "mezzanine_events.test_urls"
@@ -58,13 +59,13 @@ class EventTests (TestCase):
     
     def test_clean(self):
         self.event.clean()
-        self.assertAlmostEqual(self.event.lat, -34.907924, places=5)
-        self.assertAlmostEqual(self.event.lon, 138.567624, places=5)
+        self.assertAlmostEqual(self.event.lat, Decimal('-34.907924'), places=5)
+        self.assertAlmostEqual(self.event.lon, Decimal('138.567624'), places=5)
         self.assertEqual(self.event.mappable_location, '1 Susan Street, Hindmarsh SA 5007, Australia')
         
         self.unicode_event.clean()
-        self.assertAlmostEqual(self.unicode_event.lat, 35.729534, places=5)
-        self.assertAlmostEqual(self.unicode_event.lon, 139.718055, places=5)
+        self.assertAlmostEqual(self.unicode_event.lat, Decimal('35.729534'), places=5)
+        self.assertAlmostEqual(self.unicode_event.lon, Decimal('139.718055'), places=5)
     
     def test_urls(self):
         c = Client()
