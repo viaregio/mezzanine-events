@@ -53,8 +53,8 @@ class Event(Page, RichText):
 			except ValueError as e:
 				raise ValidationError("The mappable location you specified could not be found on {service}: \"{error}\" Try changing the mappable location, removing any business names, or leaving mappable location blank and using coordinates from getlatlon.com.".format(service="Google Maps", error=e.message))
 			self.mappable_location = location
-			self.lat = lat
-			self.lon = lon
+			self.lat = str(lat)
+			self.lon = str(lon)
 		
 	def save(self, *args, **kwargs):
 		# determine whether the page needs to be hidden
